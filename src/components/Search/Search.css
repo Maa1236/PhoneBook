@@ -1,0 +1,41 @@
+.inputWithoutBorder {
+    border: none;
+    border-radius: 10px;
+    background-color: transparent;
+    resize: none;
+    outline: none;
+    padding: 7px;
+}
+
+.container-fluid {
+    margin-left: 10px;
+}
+
+p {
+    margin-top: 30px;
+    margin-bottom: 5px;
+    font-size: 18px;
+    color: white;
+}
+
+input::placeholder {
+    color: white;
+}
+
+input {
+    color: white;
+}
+
+.material-icons {
+    color: white;
+}
+
+.search {
+    border: none;
+    background-color: rgb(88, 88, 88);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 3px;
+    width: 25%;
+    margin-bottom: 15px;
+}
