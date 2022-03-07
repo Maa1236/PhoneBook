@@ -2,9 +2,13 @@ import React from 'react';
 import './FormInput.css';
 import { Button } from 'react-bootstrap';
 import { encodeAsBase64, db, listContacts } from '../../Services';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 
 
 const FormInput = ({ user, setUser, setTables }) => {
+
+  const navigate = useNavigate();
+  const { setShowBtn} = useOutletContext();
 
   const emptyUser = {
     image: [],
@@ -37,12 +41,14 @@ const FormInput = ({ user, setUser, setTables }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setUser(emptyUser);
+    navigate('/');
+    setShowBtn(true);
+
   }
 
   return (
     <div className="container-fluid con1">
       <form id="input" onSubmit={handleSubmit}>
-        <h1 className='h'>PhoneBook</h1>
         <label>Firstname: <input type="text" name="firstname" id="firstname" value={user.firstname} onChange={handleChange} /></label>
         <label>Lastname: <input type="text" name="lastname" id="lastname" value={user.lastname} onChange={handleChange} /></label>
         <label>Address: <input type="text" name="address" id="address" value={user.address} onChange={handleChange} /></label>

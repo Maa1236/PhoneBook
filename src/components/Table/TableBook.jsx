@@ -6,11 +6,14 @@ import EditRow from '../EditRow/EditRow';
 import './TableBook.css';
 import { ExportCSV } from '../ExportCSV/ExportCSV';
 import { listContacts, db } from '../../Services';
+import Header from '../Header/Header';
+import { Outlet } from 'react-router-dom';
 
 const TableBook = ({ tables, editData, user, setUser, setTables }) => {
   const [search, setSearch] = useState("");
   const [show, setShow] = useState(false);
-  const [rowID, setRowID] = useState(null)
+  const [rowID, setRowID] = useState(null);
+  const [showBtn, setShowBtn] = useState(true);
 
   const deleteFn = (id) => {
     db.transaction(function (tx) {
@@ -58,6 +61,8 @@ const TableBook = ({ tables, editData, user, setUser, setTables }) => {
   return (
     <>
       <div className="container-fluid con">
+        <Header showBtn={showBtn} setShowBtn={setShowBtn} />
+        <Outlet context={{setShowBtn}} />
         <Search setSearch={setSearch} />
         <Table striped hover bordered variant="dark">
           <thead>
