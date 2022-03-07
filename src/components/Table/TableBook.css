@@ -19,4 +19,5 @@ thead {
     height: 1000px;
     border: 1px solid black;
     background-size: 100%;
+    overflow: scroll;
 }

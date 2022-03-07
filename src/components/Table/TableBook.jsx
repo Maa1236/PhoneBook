@@ -26,7 +26,7 @@ const TableBook = ({ tables, deleteFn, updateContact, editData, user, setUser })
       return (
         <>
           <TableRow key={index} tableItem={tableItem} deleteFn={deleteFn} tables={tables} updateContact={updateContact} editData={editData} setShow={setShow} show={show} setRowID={setRowID} />
-          {(rowID == tableItem.id && show) ? (
+          {(rowID === tableItem.id && show) ? (
             <EditRow tableItem={tableItem} editData={editData} user={user} setUser={setUser} setShow={setShow} show={show} />
           ) : (null)
           }

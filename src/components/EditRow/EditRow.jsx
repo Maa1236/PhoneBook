@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from 'react-bootstrap';
 import './EditRow.css'
 
@@ -12,9 +12,6 @@ const EditRow = ({ editData, tableItem, user, setUser, setShow, show }) => {
         editData(tableItem.id);
         setShow(!show)
     }
-
-    const [fileBase64, setFileBase64] = useState("");
-
 
     function encodeAsBase64(file) {
         const reader = new FileReader();
@@ -34,12 +31,8 @@ const EditRow = ({ editData, tableItem, user, setUser, setShow, show }) => {
     }
 
     const handleUpload = async (event) => {
-        event.persist();
         try {
             const fileContents = await encodeAsBase64(event.target.files[0])
-            setFileBase64(fileContents)
-            console.log(fileContents)
-            console.log(fileBase64)
             setUser({ ...user, [event.target.name]: fileContents })
         } catch (e) {
             console.log(e.message)
