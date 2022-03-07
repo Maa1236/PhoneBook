@@ -9,7 +9,7 @@ import { listContacts, db } from '../../Services';
 import Header from '../Header/Header';
 import { Outlet } from 'react-router-dom';
 
-const TableBook = ({ tables, editData, user, setUser, setTables }) => {
+const TableBook = ({ tables, user, setUser, setTables }) => {
   const [search, setSearch] = useState("");
   const [show, setShow] = useState(false);
   const [rowID, setRowID] = useState(null);
@@ -62,15 +62,17 @@ const TableBook = ({ tables, editData, user, setUser, setTables }) => {
     <>
       <div className="container-fluid con">
         <Header showBtn={showBtn} setShowBtn={setShowBtn} />
-        <Outlet context={{setShowBtn}} />
+        <Outlet context={{ setShowBtn }} />
         <Search setSearch={setSearch} />
         <Table striped hover bordered variant="dark">
           <thead>
-            <th>Image</th>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Address</th>
-            <th>Action</th>
+            <tr>
+              <th>Image</th>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Address</th>
+              <th colSpan={"2"}>Action</th>
+            </tr>
           </thead>
           <tbody>
             {component}

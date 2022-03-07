@@ -13,7 +13,7 @@ label {
     color: rgba(244, 244, 248, 0.9);
     font-family: helvetica;
     font-weight: 600;
-    margin-left: 70px;
+    margin-left: 40px;
     margin-right: auto;
 }
 
@@ -32,11 +32,12 @@ input[type="text"]::placeholder {
     color: white;
 }
 
-button {
+.btnCustom {
     margin: 10px;
-    margin-left: 40px;
+    margin-left: 10px;
     width: 80px;
     height: 30px;
+    padding: 2px;
 }
 
 

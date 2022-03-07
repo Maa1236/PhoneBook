@@ -14,11 +14,11 @@ const TableRow = ({ tableItem, deleteFn, id, show, setShow, setRowID }) => {
             <td>{tableItem.firstname}</td>
             <td>{tableItem.lastname}</td>
             <td>{tableItem.address}</td>
-            <td><Button className="btn-sm" onClick={() => { deleteFn(tableItem.id) }}>Delete</Button></td>
+            <td style={{width: "10%"}}><Button style={{margin: "0 auto"}} className="btn-sm btnCustom" onClick={() => { deleteFn(tableItem.id) }}>Delete</Button></td>
             {show ?
                 (null)
                 :
-                (<td><Button className="btn-sm" onClick={showRow}>Edit</Button></td>)
+                (<td style={{width: "10%"}}><Button style={{margin: "0 auto"}} className="btn-sm btnCustom" onClick={showRow}>Edit</Button></td>)
             }
         </tr>
     )

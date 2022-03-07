@@ -8,7 +8,7 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 const FormInput = ({ user, setUser, setTables }) => {
 
   const navigate = useNavigate();
-  const { setShowBtn} = useOutletContext();
+  const { setShowBtn } = useOutletContext();
 
   const emptyUser = {
     image: [],
@@ -43,7 +43,11 @@ const FormInput = ({ user, setUser, setTables }) => {
     setUser(emptyUser);
     navigate('/');
     setShowBtn(true);
+  }
 
+  const handleCloseBtn = () => {
+    navigate('/');
+    setShowBtn(true);
   }
 
   return (
@@ -53,7 +57,7 @@ const FormInput = ({ user, setUser, setTables }) => {
         <label>Lastname: <input type="text" name="lastname" id="lastname" value={user.lastname} onChange={handleChange} /></label>
         <label>Address: <input type="text" name="address" id="address" value={user.address} onChange={handleChange} /></label>
         <label>Image: <input type="file" name="image" id="image" onChange={handleUpload} /></label>
-        <Button type='submit' className="btn-sm" onClick={addContact}>Add</Button>
+        <Button type='submit' className="btn-sm btnCustom" onClick={addContact}>Add</Button><Button className="btn-sm btnCustom" variant="secondary" size="sm" onClick={handleCloseBtn}>Cancel</Button>
       </form>
     </div>
   )
