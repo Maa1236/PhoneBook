@@ -10,5 +10,9 @@
 .b{
     text-align: center;
     vertical-align: middle;
-    
+}
+
+.paddingNav {
+    display: flex;
+    align-content: space-between;
 }
