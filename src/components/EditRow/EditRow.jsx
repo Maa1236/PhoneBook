@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import './EditRow.css'
+import './EditRow.css';
+import { encodeAsBase64 } from '../../Services';
 
-const EditRow = ({ editData, tableItem, user, setUser, setShow, show }) => {
+const EditRow = ({ tableItem, user, setUser, setShow, show, editData }) => {
 
     const handleEditChange = ({ target }) => {
         setUser({ ...user, [target.name]: target.value })
@@ -11,23 +12,6 @@ const EditRow = ({ editData, tableItem, user, setUser, setShow, show }) => {
     const handleShow = () => {
         editData(tableItem.id);
         setShow(!show)
-    }
-
-    function encodeAsBase64(file) {
-        const reader = new FileReader();
-        if (file) {
-            reader.readAsDataURL(file);
-        }
-        return new Promise((resolve, reject) => {
-
-            reader.onerror = () => {
-                reader.abort();
-                reject(new DOMException("Problem parsing input file."));
-            };
-            reader.onload = () => {
-                resolve(reader.result);
-            }
-        })
     }
 
     const handleUpload = async (event) => {

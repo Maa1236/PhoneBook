@@ -5,11 +5,32 @@ import { Table } from 'react-bootstrap';
 import EditRow from '../EditRow/EditRow';
 import './TableBook.css';
 import { ExportCSV } from '../ExportCSV/ExportCSV';
+import { listContacts, db } from '../../Services';
 
-const TableBook = ({ tables, deleteFn, updateContact, editData, user, setUser }) => {
+const TableBook = ({ tables, editData, user, setUser, setTables }) => {
   const [search, setSearch] = useState("");
   const [show, setShow] = useState(false);
   const [rowID, setRowID] = useState(null)
+
+  const deleteFn = (id) => {
+    db.transaction(function (tx) {
+      tx.executeSql("DELETE FROM contacts WHERE ID=?", [id])
+    })
+    listContacts(setTables)
+  }
+
+  function editData(id) {
+    db.transaction(function (tx) {
+      tx.executeSql('update contacts set image="' + user.image + '", firstname="' + user.firstname + '",lastname="' + user.lastname + '",address="' + user.address + '"where id=' + id + '', [],
+        function (tx, result) {
+          alert('Updated');
+        },
+        function (error) {
+          alert(error);
+        });
+      listContacts(setTables);
+    });
+  }
 
   let component = tables
     .filter((item) => {
@@ -25,7 +46,7 @@ const TableBook = ({ tables, deleteFn, updateContact, editData, user, setUser })
 
       return (
         <>
-          <TableRow key={index} tableItem={tableItem} deleteFn={deleteFn} tables={tables} updateContact={updateContact} editData={editData} setShow={setShow} show={show} setRowID={setRowID} />
+          <TableRow key={index} tableItem={tableItem} tables={tables} deleteFn={deleteFn} setShow={setShow} show={show} setRowID={setRowID} />
           {(rowID === tableItem.id && show) ? (
             <EditRow tableItem={tableItem} editData={editData} user={user} setUser={setUser} setShow={setShow} show={show} />
           ) : (null)

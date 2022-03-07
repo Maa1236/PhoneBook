@@ -1,8 +1,10 @@
 import React from 'react';
 import './FormInput.css';
 import { Button } from 'react-bootstrap';
+import { encodeAsBase64, db, listContacts } from '../../Services';
 
-const FormInput = ({ user, setUser, addContact }) => {
+
+const FormInput = ({ user, setUser, setTables }) => {
 
   const emptyUser = {
     image: [],
@@ -11,24 +13,16 @@ const FormInput = ({ user, setUser, addContact }) => {
     address: ""
   }
 
-  const handleChange = ({ target }) => {
-    setUser({ ...user, [target.name]: target.value })
+  const addContact = () => {
+    db.transaction(function (tx) {
+      tx.executeSql('INSERT INTO contacts(image,firstname,lastname,address) VALUES (?,?,?,?)', [user.image, user.firstname, user.lastname, user.address], function (tx, results) {
+        listContacts(setTables);
+      });
+    });
   }
 
-  function encodeAsBase64(file) {
-    const reader = new FileReader();
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-    return new Promise((resolve, reject) => {
-      reader.onerror = () => {
-        reader.abort();
-        reject(new DOMException("Problem parsing input file."));
-      };
-      reader.onload = () => {
-        resolve(reader.result);
-      }
-    })
+  const handleChange = ({ target }) => {
+    setUser({ ...user, [target.name]: target.value })
   }
 
   const handleUpload = async (event) => {
@@ -53,7 +47,7 @@ const FormInput = ({ user, setUser, addContact }) => {
         <label>Lastname: <input type="text" name="lastname" id="lastname" value={user.lastname} onChange={handleChange} /></label>
         <label>Address: <input type="text" name="address" id="address" value={user.address} onChange={handleChange} /></label>
         <label>Image: <input type="file" name="image" id="image" onChange={handleUpload} /></label>
-        <Button type='submit' className="btn-sm" onClick={() => { addContact(user.image, user.firstname, user.lastname, user.address) }}>Add</Button>
+        <Button type='submit' className="btn-sm" onClick={addContact}>Add</Button>
       </form>
     </div>
   )

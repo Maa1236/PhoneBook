@@ -25,3 +25,19 @@ export const createTables = () => {
     });
   }
 
+export function encodeAsBase64(file) {
+    const reader = new FileReader();
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+    return new Promise((resolve, reject) => {
+      reader.onerror = () => {
+        reader.abort();
+        reject(new DOMException("Problem parsing input file."));
+      };
+      reader.onload = () => {
+        resolve(reader.result);
+      }
+    })
+  }
+
