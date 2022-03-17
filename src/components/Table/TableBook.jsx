@@ -9,10 +9,9 @@ import { listContacts, db } from '../../Services';
 import Header from '../Header/Header';
 import { Outlet } from 'react-router-dom';
 
-const TableBook = ({ tables, user, setUser, setTables }) => {
+const TableBook = ({ tables, user, setUser, setTables, setRoID, roID }) => {
   const [search, setSearch] = useState("");
   const [show, setShow] = useState(false);
-  const [rowID, setRowID] = useState(null);
   const [showBtn, setShowBtn] = useState(true);
 
   const deleteFn = (id) => {
@@ -40,7 +39,7 @@ const TableBook = ({ tables, user, setUser, setTables }) => {
       let result = null;
       if (search === "") {
         result = item;
-      } else if (item.firstname.toLowerCase().includes(search.toLowerCase())) {
+      } else if (item.firstname.toLowerCase().includes(search.toLowerCase()) || item.lastname.toLowerCase().includes(search.toLowerCase())) {
         result = item;
       }
       return result;
@@ -49,8 +48,8 @@ const TableBook = ({ tables, user, setUser, setTables }) => {
 
       return (
         <>
-          <TableRow key={index} tableItem={tableItem} tables={tables} deleteFn={deleteFn} setShow={setShow} show={show} setRowID={setRowID} />
-          {(rowID === tableItem.id && show) ? (
+          <TableRow key={index} tableItem={tableItem} tables={tables} deleteFn={deleteFn} setShow={setShow} show={show} setRoID={setRoID} />
+          {(roID === tableItem.id && show) ? (
             <EditRow tableItem={tableItem} editData={editData} user={user} setUser={setUser} setShow={setShow} show={show} />
           ) : (null)
           }
@@ -71,7 +70,7 @@ const TableBook = ({ tables, user, setUser, setTables }) => {
               <th>Firstname</th>
               <th>Lastname</th>
               <th>Address</th>
-              <th colSpan={"2"}>Action</th>
+              <th colSpan={"3"}>Action</th>
             </tr>
           </thead>
           <tbody>
