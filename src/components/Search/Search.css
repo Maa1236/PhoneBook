@@ -28,6 +28,10 @@ input {
 
 .material-icons {
     color: white;
+    position: relative;
+    z-index: 1;
+    top: 7px;
+    pointer-events: none;
 }
 
 .search {
